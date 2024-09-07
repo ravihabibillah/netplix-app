@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:netplix_app/features/movie/presentation/widgets/movie_carousel_list.dart';
+import 'package:netplix_app/features/movie/presentation/widgets/now_playing_list.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-          MovieCarouselList(),
+          NowPlayingList(),
         ],
       ),
     );
