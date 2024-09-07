@@ -29,11 +29,9 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
   @override
   Future<List<MovieModel>> getNowPlaying() async {
     final response = await client.get(
-      Uri.parse(BASE_URL),
+      Uri.parse(BASE_URL + NOW_PLAYING_URL),
       headers: HEADER,
     );
-
-    log(response.body.toString());
 
     if (response.statusCode == 200) {
       return nowPlayingResponseFromJson(response.body).results!;
