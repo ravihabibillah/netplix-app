@@ -26,32 +26,37 @@ class _MovieCarouselState extends State<MovieCarousel> {
       itemBuilder: (context, itemIndex, pageViewIndex) {
         var movie = widget.item[itemIndex];
         print(StringCons.imageBaseUrl + movie.posterPath!);
-        return Container(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Placeholder(),
-              Expanded(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: CachedNetworkImage(
-                    imageUrl: StringCons.imageBaseUrl + movie.posterPath!,
-                    errorWidget: (context, url, error) => const Text(
-                      'Gambar rusak!',
+        return GestureDetector(
+          onTap: () {},
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Expanded(
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: CachedNetworkImage(
+                      imageUrl: StringCons.imageBaseUrl + movie.posterPath!,
+                      errorWidget: (context, url, error) => const Text(
+                        'Gambar rusak!',
+                      ),
                     ),
                   ),
                 ),
-              ),
-              SizedBox(height: 16),
-              Text(
-                movie.title ?? 'Tidak ada Judul',
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+                const SizedBox(height: 12),
+                Text(
+                  movie.title ?? 'Tidak ada Judul',
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       },
@@ -59,8 +64,8 @@ class _MovieCarouselState extends State<MovieCarousel> {
         autoPlayAnimationDuration: const Duration(milliseconds: 400),
         autoPlay: true,
         enlargeCenterPage: true,
-        viewportFraction: 0.9,
-        aspectRatio: 1,
+        viewportFraction: 0.5,
+        aspectRatio: 1.2,
       ),
     );
   }
