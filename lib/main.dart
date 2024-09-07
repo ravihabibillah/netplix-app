@@ -3,7 +3,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:netplix_app/config/environment.dart';
 import 'package:netplix_app/config/provider_setting.dart';
 import 'package:netplix_app/config/routes/app_pages.dart';
-import 'package:netplix_app/features/home/representation/ui/home_screen.dart';
 import 'package:netplix_app/injection.dart' as inject;
 import 'package:provider/provider.dart';
 

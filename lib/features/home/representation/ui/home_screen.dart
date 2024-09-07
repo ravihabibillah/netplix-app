@@ -10,7 +10,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Netplix'),
       ),
-      body: Column(
+      body: const Column(
         children: [
           NowPlayingList(),
         ],
