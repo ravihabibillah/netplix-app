@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:netplix_app/config/environment.dart';
 import 'package:netplix_app/config/provider_setting.dart';
+import 'package:netplix_app/config/routes/app_pages.dart';
 import 'package:netplix_app/features/home/representation/ui/home_screen.dart';
 import 'package:netplix_app/injection.dart' as inject;
 import 'package:provider/provider.dart';
@@ -21,7 +22,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: ProviderSetting.mainProvider,
-      child: MaterialApp(
+      child: MaterialApp.router(
         theme: ThemeData(
           useMaterial3: true,
           appBarTheme: const AppBarTheme(
@@ -29,7 +30,7 @@ class MainApp extends StatelessWidget {
             foregroundColor: Colors.white,
           ),
         ),
-        home: const HomeScreen(),
+        routerConfig: AppPages.router,
       ),
     );
   }
