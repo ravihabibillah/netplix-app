@@ -57,9 +57,21 @@ class MovieRepositoryImpl extends MovieRepository {
       final result = await remoteDataSource.search(query);
       return Right(result.map((model) => model.toEntity()).toList());
     } on ServerException {
-      return const Left(const ServerFailure('Terjadi Kesalahan Server'));
+      return const Left(ServerFailure('Terjadi Kesalahan Server'));
     } on SocketException {
       return const Left(ConnectionFailure('Failed to connect to the network'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Movie>>> getPopular() async {
+    try {
+      final result = await remoteDataSource.getPopular();
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return const Left(ServerFailure('Terjadi Kesalahan Server'));
+    } on SocketException {
+      return const Left(ConnectionFailure('Gagal Terkoneksi dengan internet!'));
     }
   }
 }

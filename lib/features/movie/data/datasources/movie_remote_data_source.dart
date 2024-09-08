@@ -5,15 +5,15 @@ import 'dart:developer';
 import 'package:netplix_app/config/environment.dart';
 import 'package:netplix_app/features/movie/data/model/movie_detail_model.dart';
 import 'package:netplix_app/features/movie/data/model/movie_model.dart';
-import 'package:netplix_app/features/movie/data/model/now_playing_response.dart';
+import 'package:netplix_app/features/movie/data/model/movie_response.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:netplix_app/features/movie/data/model/search_response.dart';
 import 'package:netplix_app/features/movie/data/model/trailer_model.dart';
 import 'package:netplix_app/utils/exception.dart';
 
 abstract class MovieRemoteDataSource {
   Future<List<MovieModel>> getNowPlaying();
+  Future<List<MovieModel>> getPopular();
   Future<MovieDetailModel> getDetail(String id);
   Future<List<TrailerModel>> getTrailer(String id);
   Future<List<MovieModel>> search(String query);
@@ -22,6 +22,7 @@ abstract class MovieRemoteDataSource {
 class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
   final String BASE_URL = '${Environment.baseApiUrl}/3/movie';
   final String NOW_PLAYING_URL = '/now_playing';
+  final String POPULAR_URL = '/popular';
 
   final String SEARCH_URL = '${Environment.baseApiUrl}/3/search/movie';
 
@@ -44,7 +45,7 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
     );
 
     if (response.statusCode == 200) {
-      return nowPlayingResponseFromJson(response.body).results!;
+      return movieResponseFromJson(response.body).results!;
     } else {
       throw ServerException();
     }
@@ -87,7 +88,21 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
     log(response.body);
 
     if (response.statusCode == 200) {
-      return searchResponseFromJson(response.body).results!;
+      return movieResponseFromJson(response.body).results!;
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<MovieModel>> getPopular() async {
+    final response = await client.get(
+      Uri.parse(BASE_URL + POPULAR_URL),
+      headers: HEADER,
+    );
+
+    if (response.statusCode == 200) {
+      return movieResponseFromJson(response.body).results!;
     } else {
       throw ServerException();
     }

@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:netplix_app/features/movie/presentation/bloc/detail/bloc/detail_bloc.dart';
 import 'package:netplix_app/features/movie/presentation/bloc/now_playing/bloc/now_playing_bloc.dart';
+import 'package:netplix_app/features/movie/presentation/bloc/popular/bloc/popular_bloc.dart';
 import 'package:netplix_app/features/movie/presentation/bloc/search/bloc/search_bloc.dart';
 import 'package:netplix_app/features/movie/presentation/bloc/trailer/bloc/trailer_bloc.dart';
 import 'package:netplix_app/injection.dart' as inject;
@@ -10,6 +11,9 @@ class ProviderSetting {
   static List<SingleChildWidget> mainProvider = [
     BlocProvider(
       create: (_) => inject.locator<NowPlayingBloc>(),
+    ),
+    BlocProvider(
+      create: (_) => inject.locator<PopularBloc>(),
     ),
     BlocProvider(
       create: (_) => inject.locator<DetailBloc>(),
