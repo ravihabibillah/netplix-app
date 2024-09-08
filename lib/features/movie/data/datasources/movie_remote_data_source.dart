@@ -1,21 +1,27 @@
 // ignore_for_file: non_constant_identifier_names, constant_identifier_names
 
+import 'dart:developer';
+
 import 'package:netplix_app/config/environment.dart';
-import 'package:netplix_app/features/movie/data/model/detail_response.dart';
+import 'package:netplix_app/features/movie/data/model/movie_detail_model.dart';
 import 'package:netplix_app/features/movie/data/model/movie_model.dart';
 import 'package:netplix_app/features/movie/data/model/now_playing_response.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:netplix_app/features/movie/data/model/trailer_model.dart';
 import 'package:netplix_app/utils/exception.dart';
 
 abstract class MovieRemoteDataSource {
   Future<List<MovieModel>> getNowPlaying();
-  Future<DetailResponse> getDetail(String id);
+  Future<MovieDetailModel> getDetail(String id);
+  Future<List<TrailerModel>> getTrailer(String id);
 }
 
 class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
   final String BASE_URL = '${Environment.baseApiUrl}/3/movie';
   final String NOW_PLAYING_URL = '/now_playing';
+
+  final String TRAILER_URL = 'https://api.kinocheck.com/trailers';
 
   var HEADER = {
     'Accept': 'application/json',
@@ -41,7 +47,7 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
   }
 
   @override
-  Future<DetailResponse> getDetail(String id) async {
+  Future<MovieDetailModel> getDetail(String id) async {
     final response = await client.get(
       Uri.parse('$BASE_URL/$id'),
       headers: HEADER,
@@ -49,6 +55,22 @@ class MovieRemoteDataSourceImpl extends MovieRemoteDataSource {
 
     if (response.statusCode == 200) {
       return detailResponseFromJson(response.body);
+    } else {
+      throw ServerException();
+    }
+  }
+
+  @override
+  Future<List<TrailerModel>> getTrailer(String id) async {
+    final response = await client.get(
+      Uri.parse('$TRAILER_URL?tmdb_id=$id'),
+      headers: HEADER,
+    );
+
+    log(response.body);
+
+    if (response.statusCode == 200) {
+      return trailerModelFromJson(response.body);
     } else {
       throw ServerException();
     }

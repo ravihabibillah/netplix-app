@@ -4,9 +4,11 @@ import 'package:netplix_app/features/movie/data/repositories/movie_repository_im
 import 'package:netplix_app/features/movie/domain/repositories/movie_repository.dart';
 import 'package:netplix_app/features/movie/domain/usecases/get_detail.dart';
 import 'package:netplix_app/features/movie/domain/usecases/get_now_playing.dart';
+import 'package:netplix_app/features/movie/domain/usecases/get_trailer.dart';
 import 'package:netplix_app/features/movie/presentation/bloc/detail/bloc/detail_bloc.dart';
 import 'package:netplix_app/features/movie/presentation/bloc/now_playing/bloc/now_playing_bloc.dart';
 import 'package:http/http.dart' as http;
+import 'package:netplix_app/features/movie/presentation/bloc/trailer/bloc/trailer_bloc.dart';
 
 final locator = GetIt.instance;
 
@@ -24,10 +26,16 @@ void init() {
       getDetail: locator(),
     ),
   );
+  locator.registerFactory(
+    () => TrailerBloc(
+      getTrailer: locator(),
+    ),
+  );
 
   // Use Case
   locator.registerLazySingleton(() => GetNowPlaying(locator()));
   locator.registerLazySingleton(() => GetDetail(locator()));
+  locator.registerLazySingleton(() => GetTrailer(locator()));
 
   // Repository
   locator.registerLazySingleton<MovieRepository>(

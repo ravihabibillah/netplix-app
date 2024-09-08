@@ -7,10 +7,10 @@ import 'dart:convert';
 import 'package:netplix_app/features/movie/data/model/genre_model.dart';
 import 'package:netplix_app/features/movie/domain/entities/movie_detail.dart';
 
-DetailResponse detailResponseFromJson(String str) =>
-    DetailResponse.fromJson(json.decode(str));
+MovieDetailModel detailResponseFromJson(String str) =>
+    MovieDetailModel.fromJson(json.decode(str));
 
-class DetailResponse {
+class MovieDetailModel {
   bool? adult;
   String? backdropPath;
   dynamic belongsToCollection;
@@ -38,7 +38,7 @@ class DetailResponse {
   double? voteAverage;
   int? voteCount;
 
-  DetailResponse({
+  MovieDetailModel({
     this.adult,
     this.backdropPath,
     this.belongsToCollection,
@@ -67,7 +67,8 @@ class DetailResponse {
     this.voteCount,
   });
 
-  factory DetailResponse.fromJson(Map<String, dynamic> json) => DetailResponse(
+  factory MovieDetailModel.fromJson(Map<String, dynamic> json) =>
+      MovieDetailModel(
         adult: json["adult"],
         backdropPath: json["backdrop_path"],
         belongsToCollection: json["belongs_to_collection"],
