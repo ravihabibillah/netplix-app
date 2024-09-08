@@ -21,6 +21,7 @@ dependencies:
   go_router: ^14.2.7
   http: ^1.2.2
   provider: ^6.1.2
+  rxdart: ^0.28.0
   youtube_player_flutter: ^9.0.3
 
 dev_dependencies:

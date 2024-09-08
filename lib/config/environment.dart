@@ -12,4 +12,8 @@ class Environment {
   static String get accessToken {
     return dotenv.env['ACCESS_TOKEN'] ?? '';
   }
+
+  static String get apiKey {
+    return dotenv.env['API_KEY'] ?? '';
+  }
 }

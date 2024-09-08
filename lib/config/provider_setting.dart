@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:netplix_app/features/movie/presentation/bloc/detail/bloc/detail_bloc.dart';
 import 'package:netplix_app/features/movie/presentation/bloc/now_playing/bloc/now_playing_bloc.dart';
+import 'package:netplix_app/features/movie/presentation/bloc/search/bloc/search_bloc.dart';
 import 'package:netplix_app/features/movie/presentation/bloc/trailer/bloc/trailer_bloc.dart';
 import 'package:netplix_app/injection.dart' as inject;
 import 'package:provider/single_child_widget.dart';
@@ -15,6 +16,9 @@ class ProviderSetting {
     ),
     BlocProvider(
       create: (_) => inject.locator<TrailerBloc>(),
+    ),
+    BlocProvider(
+      create: (_) => inject.locator<SearchBloc>(),
     ),
   ];
 }

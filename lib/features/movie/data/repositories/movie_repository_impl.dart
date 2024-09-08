@@ -50,4 +50,16 @@ class MovieRepositoryImpl extends MovieRepository {
       return const Left(ConnectionFailure('Gagal Terkoneksi dengan internet!'));
     }
   }
+
+  @override
+  Future<Either<Failure, List<Movie>>> postSearch(String query) async {
+    try {
+      final result = await remoteDataSource.search(query);
+      return Right(result.map((model) => model.toEntity()).toList());
+    } on ServerException {
+      return const Left(const ServerFailure('Terjadi Kesalahan Server'));
+    } on SocketException {
+      return const Left(ConnectionFailure('Failed to connect to the network'));
+    }
+  }
 }

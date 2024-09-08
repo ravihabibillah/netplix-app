@@ -4,4 +4,5 @@ abstract class AppRoutes {
   AppRoutes._();
 
   static const home = AppPaths.home;
+  static const search = AppPaths.search;
 }
