@@ -42,6 +42,7 @@ class _MovieCarouselState extends State<MovieCarousel> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(16),
                     child: CachedNetworkImage(
+                      fit: BoxFit.cover,
                       imageUrl: StringCons.imageBaseUrl + movie.posterPath!,
                       errorWidget: (context, url, error) => const Text(
                         'Gambar rusak!',
